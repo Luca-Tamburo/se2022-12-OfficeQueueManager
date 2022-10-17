@@ -12,21 +12,21 @@ const Home = () => {
                 <h4 className='mb-4 text-center'>Choose your role! </h4>
                 <Col className='mt-3 text-center'>
                     <Link to={'/customer'}>
-                        <Button className='mx-5 p-2'>
+                        <Button size="lg" className='mx-5 p-2'>
+                            <FontAwesomeIcon icon={faTicket} className='pe-2' />
                             Customer
-                            <FontAwesomeIcon icon={faTicket} className='ps-2' />
                         </Button>
                     </Link>
                     <Link to={'/counter'}>
-                        <Button className='mx-5 p-2'>
+                        <Button size="lg" className='mx-5 p-2'>
+                            <FontAwesomeIcon icon={faDesktop} className='pe-2' />
                             Counter
-                            <FontAwesomeIcon icon={faDesktop} className='ps-2' />
                         </Button>
                     </Link>
                     <Link to={'/managerStats'}>
-                        <Button className='mx-5 p-2'>
+                        <Button size="lg" className='mx-5 p-2'>
+                            <FontAwesomeIcon icon={faScrewdriverWrench} className='pe-2' />
                             Manager
-                            <FontAwesomeIcon icon={faScrewdriverWrench} className='ps-2' />
                         </Button>
                     </Link>
                 </Col>
