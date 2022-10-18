@@ -26,10 +26,11 @@ app.use(cors(corsOptions));
 //Routes and model
 const { Queue } = require('./models/queueModel');
 const ticketRouter = require("./routes/ticketRoute");
+const serviceRouter = require("./routes/serviceRoute");
 
 
 /* --- APIs --- */
-app.use("/api", ticketRouter);
+app.use("/api", ticketRouter,serviceRouter);
 
 
 const PORT = 3001;

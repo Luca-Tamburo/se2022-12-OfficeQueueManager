@@ -11,6 +11,13 @@ const api = {
                 .then(res => resolve(res.data))
                 .catch(err => reject({ data: err.response.data, status: err.response.status }))
         })
+    },
+    getService: () => {
+        return new Promise((resolve, reject) => {
+            axios.get(SERVER_URL + `api/getService`)
+                .then(res => resolve(res.data))
+                .catch(err => reject({ data: err.response.data, status: err.response.status }));
+        })
     }
 
     /* getCourses: () => {
