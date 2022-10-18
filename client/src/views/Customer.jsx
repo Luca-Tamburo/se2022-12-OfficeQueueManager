@@ -1,9 +1,9 @@
 //Imports
 import { Button, Col, Row, Container } from "react-bootstrap";
 import Display from '../components/Display'
-import api from "../API";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBuildingColumns, faWallet, faTruckFast, faList } from '@fortawesome/free-solid-svg-icons';
+import api from "../API";
 
 const Customer = (props) => {
     return (
@@ -41,5 +41,22 @@ const Customer = (props) => {
         </Container>
     );
 }
+
+
+/*
+//Hooks
+import useNotification from '../hooks/useNotification';
+
+import { useNavigate } from "react-router-dom";
+
+    const notify = useNotification();
+    const navigate = useNavigate();
+
+    function takeTicket(service_id) {
+        api.addTicket(service_id);
+        notify.success(`Operation performed successfully!. You have ticket # ${ticket.id} for the service ${service.id}. Waiting time ${ticket.id}`)
+        navigate('/', { replace: true });
+    }
+*/
 
 export default Customer;
