@@ -10,7 +10,7 @@ const dayjs = require('dayjs');
  * @param {number} last last ticket number to get in line
  */
 
-function Queue (ST_ID, date, first=0, last=0){
+function Queue (ST_ID, date, first=1, last=1){
     this.ST_ID = ST_ID;
     this.date = date === null? dayjs() : dayjs(date);
     this.first = first;
@@ -20,10 +20,10 @@ function Queue (ST_ID, date, first=0, last=0){
         this.last++;
     }
     this.dequeue = function(){
-        if(this.first<this.last)
+        if(this.first<=this.last)
         {
             this.first++;
-            return this.first-1;
+            return this.first;
         }
     }
     this.getLenght = function(){
@@ -34,4 +34,8 @@ function Queue (ST_ID, date, first=0, last=0){
     }
 }
 
+
+let QueueList = [new Queue(1, dayjs(), 0, 0), new Queue(2, dayjs(), 0, 0), new Queue(3, dayjs(), 0, 0), new Queue(4, dayjs(), 0, 0)]; // these values will be read from db (and done with a cicle)
+
 exports.Queue = Queue;
+exports.QueueList = QueueList;

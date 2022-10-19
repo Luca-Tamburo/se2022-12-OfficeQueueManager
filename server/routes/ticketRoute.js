@@ -2,13 +2,13 @@
 
 const express = require('express');
 const TicketDAO = require('../dao/TicketDAO');
+const CounterDAO = require('../dao/CounterDAO');
 const router = express.Router();
-const {Queue} = require('../models/queueModel');
+const { Queue, QueueList } = require('../models/queueModel');
 const dayjs = require('dayjs')
 const { check, param, body, validationResult } = require('express-validator');
 
 
-let QueueList = [new Queue(1, dayjs(), 0, 0), new Queue(2, dayjs(), 0, 0), new Queue(3, dayjs(), 0, 0), new Queue(4, dayjs(), 0, 0)]; // these values will be read from db (and done with a cicle)
 
 
 router.post('/newTicket', [ body('ST_ID').notEmpty()], async (req, res) => {
@@ -46,6 +46,35 @@ router.get('/getTicketbyService/:id', [], async (req, res) => {
     try {
         let service = await TicketDAO.getTicketbyServicesbyID(req.params.id);
         return res.status(201).json(service);
+    } catch (err) {
+        return res.status(err).end();
+    }
+});
+router.put('/Ticket', [body('ST_ID').notEmpty()], [body('ID_Counter').notEmpty()], async (req, res) => {
+    if (QueueList[req.body.ST_ID-1].getLenght() > 0) {
+        try {
+            let Ticket_Number = QueueList[req.body.ST_ID-1].dequeue();
+            await TicketDAO.modifyTicket(Ticket_Number, req.body.ST_ID, req.body.ID_Counter);
+            return res.status(201).json(Ticket_Number).end();
+        } catch (err) {
+            return res.status(err).end();
+        }
+    }
+});
+
+router.get('/ServiceCounter/:id', async (req, res) => {
+    try {
+        const services = await CounterDAO.getServices(req.params.id);
+    
+        //Algorithm to determine which service to attend
+        let serviceMaxQueue = services[0].ST_ID
+        for (let service of services) {
+            if (QueueList[service.ST_ID-1].getLenght() > QueueList[serviceMaxQueue-1].getLenght()){
+                serviceMaxQueue = service.ST_ID
+            }
+        }
+
+        return res.status(201).json(serviceMaxQueue).end();
     } catch (err) {
         return res.status(err).end();
     }

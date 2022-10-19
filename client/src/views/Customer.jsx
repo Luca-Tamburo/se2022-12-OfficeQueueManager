@@ -13,7 +13,7 @@ import useNotification from '../hooks/useNotification';
 //APIs
 import api from "../API";
 
-const Customer = () => {
+const Customer = (props) => {
     const [services, setServices] = useState([])
     const notify = useNotification();
 
@@ -37,7 +37,7 @@ const Customer = () => {
     ]
 
     useEffect(() => {
-        api.getService()
+        api.getServices()
             .then((services) => {
                 setServices(services.rows);
             })
@@ -67,7 +67,7 @@ const Customer = () => {
             </Row>
             {/* Add props here */}
             <Row className="mt-4 text-center">
-                <Display />
+                <Display counter = {props.counter} ticket = {props.ticket}/>
             </Row>
         </Container>
     );

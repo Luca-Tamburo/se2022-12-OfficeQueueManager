@@ -12,13 +12,13 @@ import useNotification from '../hooks/useNotification';
 
 
 
-const Display = () => {
+const Display = (props) => {
     const [services, setServices] = useState([])
     const [counters, setCounters] = useState([])
     const notify = useNotification();
 
     useEffect(() => {
-        api.getService()
+        api.getServices()
             .then((services) => {
                 setServices(services.rows);
             })
@@ -52,7 +52,7 @@ const Display = () => {
                     <tbody>
                         {
                             counters.map((c) =>
-                                <TableCounterData key = {c.ID} counter = {c}/>)
+                                <TableCounterData key = {c.ID} counter = {c} countert = {props.counter} ticket = {props.ticket}/>)
 
                         }
                     </tbody>
@@ -85,16 +85,19 @@ function TableCounterData(props) {
     const [TicketCalled, setTicketCalled] = useState([])
     const notify = useNotification();
 
-    useEffect(() => {
-        api.getTicketbyCounter(props.counter.ID)
-            .then((t) => {
-                setTicketCalled(t.ID);
-            })
-            .catch(err => {
-                notify.error(err.message);
-            })
-    }, [])
+    console.log(props.countert);
+    console.log(props.counter.ID);
+    console.log(props.ticket);
 
+    useEffect(() => {
+            if(props.countert == props.counter.ID)
+                {
+                    setTicketCalled(props.ticket)
+                }
+            else{
+                    setTicketCalled(undefined)
+                }
+    }, [])
     
 
     return (
