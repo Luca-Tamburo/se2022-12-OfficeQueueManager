@@ -18,6 +18,27 @@ const api = {
                 .then(res => resolve(res.data))
                 .catch(err => reject({ data: err.response.data, status: err.response.status }));
         })
+    },
+    getCounters: () => {
+        return new Promise((resolve, reject) => {
+            axios.get(SERVER_URL + `api/getCounters`)
+                .then(res => resolve(res.data))
+                .catch(err => reject({ data: err.response.data, status: err.response.status }));
+        })
+    },
+    getTicketbyCounter: (ID) => {
+        return new Promise((resolve, reject) => {
+            axios.get(SERVER_URL + `api/getTicketbyCounter/${ID}`)
+                .then(res => resolve(res.data))
+                .catch(err => reject({ data: err.response.data, status: err.response.status }));
+        })
+    },
+    getTicketbyService: (ID) => {
+        return new Promise((resolve, reject) => {
+            axios.get(SERVER_URL + `api/getTicketbyService/${ID}`)
+                .then(res => resolve(res.data))
+                .catch(err => reject({ data: err.response.data, status: err.response.status }));
+        })
     }
 
     /* getCourses: () => {

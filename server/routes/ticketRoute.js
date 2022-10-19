@@ -25,4 +25,30 @@ router.post('/newTicket', [ body('ST_ID').notEmpty()], async (req, res) => {
     }
 });
 
+router.get('/getTicketbyCounter/:id', [], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    try {
+        let counters = await TicketDAO.getTicketbyCounter(req.params.id);
+        return res.status(201).json(counters);
+    } catch (err) {
+        return res.status(err).end();
+    }
+});
+
+router.get('/getTicketbyService/:id', [], async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).json({ errors: errors.array() });
+    }
+    try {
+        let service = await TicketDAO.getTicketbyServicesbyID(req.params.id);
+        return res.status(201).json(service);
+    } catch (err) {
+        return res.status(err).end();
+    }
+});
+
 module.exports= router;

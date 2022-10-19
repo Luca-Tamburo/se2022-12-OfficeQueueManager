@@ -55,7 +55,6 @@ const Customer = () => {
                     {
                         services.map((service, index) => {
                             const icon = icons.filter(i => i.service_id === service.ID)[0].name
-                            console.log(icon);
                             return (
                                 <Button key={index} size="lg" className="mx-4 p-2" onClick={() => { api.addTicket(service.ID) }}>
                                     <FontAwesomeIcon icon={icon} className='pe-2' />

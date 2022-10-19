@@ -18,3 +18,34 @@ exports.insertTicket = (ID_Counter, ST_ID, TDate, State) => {
         });
     });
 }
+
+exports.getTicketbyCounter = (ID_Counter) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT ID FROM Ticket WHERE ID_Counter = ? AND State = "OPEN"';
+        db.all(sql, [ID_Counter], (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            const counters = rows.map((r) => (
+                {   
+                    ID: r.ID, 
+                }
+            ));
+            resolve(counters[0]);
+        });
+    });
+
+}
+
+exports.getTicketbyServicesbyID = (ID) => {
+    return new Promise((resolve, reject) => {
+        const sql = 'SELECT COUNT(*) as C FROM Ticket WHERE ST_ID = ? AND State = "OPEN"';
+        db.all(sql, [ID], (err, rows) => {
+            if (err) {
+                reject(err);
+            }
+            resolve(rows[0].C);
+        });
+    });
+
+}

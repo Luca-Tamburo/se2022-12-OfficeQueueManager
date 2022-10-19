@@ -23,8 +23,8 @@ exports.getCounterbyID = (ID) => {
 
 exports.getCounters = () => {
     return new Promise((resolve, reject) => {
-        const sql = 'SELECT * FROM Counter';
-        db.all(sql, [ID], (err, rows) => {
+        const sql = 'SELECT DISTINCT ID FROM Counter';
+        db.all(sql, [], (err, rows) => {
             if (err) {
                 reject(err);
             }
